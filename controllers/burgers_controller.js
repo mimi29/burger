@@ -5,41 +5,47 @@ var router = express.Router();
 // requires for accessing the model (database)
 var burger = require("../models/burger.js");
 
+router.get('/', function (req, res) {
+  res.redirect('/index');
+});
+
 // Create all our routes and set up logic within those routes where required.
-router.get("/", function(req, res) {
+router.get("/index", function(req, res) {
   burger.all(function(data) {
-    var hbsObject = {
-      burgers: data
-    };
+    var hbsObject = {burgers: data};
     console.log(hbsObject);
     res.render("index", hbsObject);
   });
 });
 
-router.post("/api/burgers", function(req, res) {
-  burger.create(["name", "hamburger"], [req.body.name, req.body.sleepy], function(result) {
-    // Send back the ID of the new quote
-    res.json({ id: result.insertId });
+// order am burger
+router.post("/burgers", function(req, res) {
+  console.log("burger_name: "+req.body.burger_name);
+  console.log("devour: "+req.body.devoured);
+  burger.create(
+    ["burger_name", "devoured"],
+    [req.body.burger_name, 0], function(result) {
+    res.redirect("/");
+    //res.json({ id: result.insertId });
   });
 });
-
-router.put("/api/burgers/:id", function(req, res) {
+// localhost:3000/burgers/1234
+router.post("/burgers/:id", function(req, res) {
   var condition = "id = " + req.params.id;
 
   console.log("condition", condition);
 
   burger.update(
-    {
-      sleepy: req.body.sleepy
-    },
+    {devoured: true},
     condition,
     function(result) {
+      console.log("update: ", result.body);
       if (result.changedRows === 0) {
         // If no rows were changed, then the ID must not exist, so 404
         return res.status(404).end();
       }
-      res.status(200).end();
-
+      //res.status(200).end();
+      res.redirect("/");
     }
   );
 });
