@@ -1,41 +1,40 @@
 <div class="container-fluid full-width">
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
       {{#each burgers}}
       {{#unless this.devoured}}
+      <div class="row">
+        <div class="burgerOrder">{{this.burger_name}}</div>
+        <form action="/burgers/{{this.id}}" method="POST">
+          <button class="btn btn-success devour-btn" type="submit">Devour It!</button>
+        </form>
+      </div>
 
-      <form action="/burgers/{{this.id}}" method="POST">
-        <li class="form-control">{{id}}. {{burger_name}}</li>
-        <span class="input-group-btn">
-          <button class="btn btn-success devour-button" type="submit">Devour It!</button>
-        </span>
-      </form>
+      {{/unless}}
+      {{/each}}
     </div>
 
-    {{/unless}}
-    {{/each}}
-  </div>
-
-  <div class="col-md-5">
-    {{#each burgers}}
-    {{#if this.devoured}}
-    <div class='burgerEaten'>
-      <div>
-        {{this.id}}.  {{this.burger_name}}
+    <div class="col-md-6">
+      {{#each burgers}}
+      {{#if this.devoured}}
+      <div class="burgerEaten">
+        <div>
+          {{this.id}}. {{this.burger_name}}
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <div class="row">
+            <form action="/burgers" method="POST">
+              <input type="text" id="name" name="burger_name">
+              <button type="submit" class="btn btn-success devour-btn">Add The Burger</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-    {{/if}}
-    {{/each}}
   </div>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-lg-">
-    <form action="/burgers" method="POST">
-      <input type="text" id="name" name="burger_name">
-      <button type="submit" class="addBurger">Add The Burger</button>
-    </form>
-  </div>
-</div>
-</div>
