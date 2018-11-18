@@ -2,29 +2,29 @@
   <div class="row">
     <div class="col-md-6">
       {{#each burgers}}
-      {{#unless this.devoured}}
-      <div class="row">
-        <div class="burgerOrder">{{this.burger_name}}</div>
-        <form action="/burgers/{{this.id}}" method="POST">
-          <button class="btn btn-success devour-btn" type="submit">Devour It!</button>
-        </form>
-      </div>
-
-      {{/unless}}
+        {{#unless this.devoured}}
+          <div class="row">
+            <div class="burgerOrder">{{this.burger_name}}</div>
+              <form action="/burgers/{{this.id}}" method="POST">
+                <button class="btn btn-success devour-btn" type="submit">Devour It!</button>
+              </form>
+          </div>
+        {{/unless}}
       {{/each}}
     </div>
 
     <div class="col-md-6">
       {{#each burgers}}
-      {{#if this.devoured}}
-      <div class="burgerEaten">
-        <div>
-          {{this.id}}. {{this.burger_name}}
-        </div>
-      </div>
-      {{/if}}
+        {{#if this.devoured}}
+          <div class="burgerEaten">
+            <div>
+                {{this.id}}. {{this.burger_name}}
+            </div>
+          </div>
+        {{/if}}
       {{/each}}
     </div>
+    
     <div class="container" id="addBurgerSection">
       <div class="row justify-content-md-center">
         <div class="col-md-auto">
@@ -36,3 +36,4 @@
       </div>
     </div>
   </div>
+</div>  
